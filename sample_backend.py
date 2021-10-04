@@ -1,4 +1,5 @@
-from random import random
+import string
+import random
 from flask import Flask
 from flask import request
 from flask import jsonify
@@ -74,8 +75,9 @@ def get_users():
    elif request.method == 'POST':
       print(">> request JSON", request.get_json())
       userToAdd = request.get_json()
-      usernum = random()
-      id = 'user' + str(usernum)
+      userchar = ''.join(random.choice(string.ascii_lowercase) for i in range(3))
+      usernum = ''.join(random.choice(string.digits) for i in range(3))
+      id = str(userchar) + str(usernum)
       print(id)
       userToAdd['id'] = id
       users['users_list'].append(userToAdd)
