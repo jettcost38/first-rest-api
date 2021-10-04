@@ -1,3 +1,4 @@
+from random import random
 from flask import Flask
 from flask import request
 from flask import jsonify
@@ -71,11 +72,15 @@ def get_users():
          return subdict
       return users
    elif request.method == 'POST':
-    #    print(">> request JSON", request.get_json())
+      print(">> request JSON", request.get_json())
       userToAdd = request.get_json()
+      usernum = random()
+      id = 'user' + str(usernum)
+      print(id)
+      userToAdd['id'] = id
       users['users_list'].append(userToAdd)
       resp = jsonify(success=True)
-      #resp.status_code = 200 #optionally, you can always set a response code. 
+      resp.status_code = 201 #optionally, you can always set a response code. 
       # 200 is the default code for a normal response
       return resp
   
